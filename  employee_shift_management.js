@@ -9,12 +9,30 @@ const employees = [
 // Task 2: Create a Function to Display Employee Shift Details
 
 function displayEmployeeShifts(employeeName) {
-    let employee = employees.find(employee => employee.name === employeeName);
+    let employee = employees.find(employee => employee.name === employeeName); // Finding employee in array.
     if (employee) {
-        console.log(`${employee.name} has the following shifts`);
+        console.log(`${employee.name} has the following shifts`); // Giving an output of who has the shifts.
         for (let shift of employee.shifts) {
-            console.log(`Day(s): ${shift.day}, Hours: ${shift.hours}`); 
+            console.log(`Day(s): ${shift.day}, Hours: ${shift.hours}`); // A second output with a list of shifts and hours.
         }
-    }   else {console.log("ERROR: Employee not in database.");}
+    }   else {console.log("ERROR: Employee not in database.");} // In case a non-employee is inputted.
 };
-displayEmployeeShifts("Sara");
+displayEmployeeShifts("Sara"); 
+
+// Task 3: Create a Function to Assign a New Shift
+
+function assignShift(employeeName, day, hours) {
+    let employee = employees.find(employee => employee.name === employeeName); // Same thing from last task to find the employee.
+    if (!employee) {
+        console.log("ERROR: Employee not in Database."); // Incase a non-employee is inputted.
+        return;
+    }
+    let unavailable = employee.shifts.find(shift => shift.day === day); // Finding the availability.
+    if (unavailable) {
+        console.log(`ERROR: ${employeeName} is already scheduled.`); // If an employee is already scheduled an error message will appear.
+        return;
+    } 
+    employee.shifts.push({day, hours});
+    console.log(`${employeeName} has been assigned ${hours} hours on ${day}`) // Confirmation that the shift has been assigned.
+    }
+assignShift("John", "Thursday", 8)
